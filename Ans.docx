@@ -1,0 +1,22 @@
+Добавил в 6
+1. Защита от XSS:
+Используются функции htmlspecialchars и strip_tags при выводе данных в форму. Это помогает предотвратить внедрение HTML- и JavaScript-кода, защищая от XSS-атак.
+Пример:
+  <form action="index.php" method="POST">
+  <label for="name">Имя:</label>  <input name="name" <?php if ($errors['name']) {print 'class="error"';} ?> value="<?php print htmlspecialchars(strip_tags($values['name'])); ?>" />
+
+
+  <label for="email">E-mail:</label>  <input name="email" <?php if ($errors['email']) {print 'class="error"';} ?> value="<?php print htmlspecialchars(strip_tags($values['email'])); ?>" type="email" />
+
+
+
+2. Защита от SQL Injection:
+Используюься подготовленные запросы ($db->prepare и $stmt->execute) для выполнения запросов к базе данных. Это позволяет избежать SQL-инъекций путем корректной обработки параметров запроса.
+Пример:
+
+$stmt = $db->prepare("SELECT s.tip FROM auth l, application z, abilities s, sv sz WHERE l.login = '1876' and l.id_z = z.id_z and z.id_z = sz.id_z and sz.id_s = s.id_s");  if($stmt->execute()){
+
+3. Защита от CSRF: - в процессе
+
+4. Защита от Include и Upload уязвимости.
+Указывается путь к файлу в операторе include вручную. Это помогает предотвратить включение нежелательных файлов.
